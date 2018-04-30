@@ -1,5 +1,7 @@
 package com.distributed.prject.distributedweb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -12,8 +14,9 @@ public class Coupon {
 
     String name;
     String description;
-
-    @ManyToMany(mappedBy = "coupons", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @ManyToMany(mappedBy = "coupons", fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.ALL})
     private Set<User> users;
 
     public Coupon(String name, String description, Set<User> users, Set<Product> products) {
@@ -21,6 +24,13 @@ public class Coupon {
         this.description = description;
         this.users = users;
         this.products = products;
+    }
+
+    public Coupon(int id,String name, String description) {
+        this.name = name;
+        this.description = description;
+        this.id = id;
+
     }
 
     public Coupon() {
@@ -65,6 +75,7 @@ public class Coupon {
         this.description = description;
     }
 
+    @JsonIgnore
     public Set<User> getUsers() {
         return users;
     }

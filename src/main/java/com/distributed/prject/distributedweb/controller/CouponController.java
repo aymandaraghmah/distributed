@@ -33,7 +33,7 @@ public class CouponController {
     @ApiMethod(description = "create a coupon API ")
     @RequestMapping(value = "/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<Object> signUp(@RequestBody @Valid Coupon coupon   ) {
+    public ResponseEntity<Object> createCoupon(@RequestBody @Valid Coupon coupon   ) {
 
 
                 u.save(coupon);
@@ -42,9 +42,9 @@ public class CouponController {
 
 
     @ApiMethod(description = "add a coupon to an employee API ")
-    @RequestMapping(value = "/{userId}/{couponId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "addToUser/{userId}/{couponId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<Object> signIn(@ApiParam(name="userId") int userId,@ApiParam(name="couponId") int couponId   ) {
+    public ResponseEntity<Object> addToUser(@PathVariable(name="userId") int userId,@PathVariable(name="couponId") int couponId   ) {
 
         return userService.addCouponToUser(couponId,userId);
     }
@@ -53,23 +53,23 @@ public class CouponController {
     @ApiMethod(description = "update coupon ")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<Object> updateCoupon(@RequestBody @Valid Coupon coupon , @ApiParam(name="id") int id) {
+    public ResponseEntity<Object> updateCoupon(@RequestBody @Valid Coupon coupon , @PathVariable(name="id") int id) {
 
         return userService.updateCoupon(coupon,id);
     }
 
     @ApiMethod(description = "delete coupon")
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<Object> deleterCoupon( @ApiParam(name="id") int id) {
+    public ResponseEntity<Object> deleterCoupon( @PathVariable(name="id") int id) {
 
         return userService.deleterCoupon(id);
     }
 
     @ApiMethod(description = "return all coupons for a user")
-    @RequestMapping(value = "/{userId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "user-coupons/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<Coupon> getUerCoupons(@ApiParam(name="userId") int userId) {
+    public List<Coupon> getUerCoupons(@PathVariable(name="userId") int userId) {
 
         return u.findUserCoupons(userId);
     }

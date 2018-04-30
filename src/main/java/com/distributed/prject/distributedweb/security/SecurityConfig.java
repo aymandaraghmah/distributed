@@ -63,17 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
 
-                .antMatchers("/jsondoc**","/files/**","/api/v1/employee/assign-password**","/api/v1/employee/forget-password","/api/v1/employee/login-username-password","/api/v1/vacation/uploadFile**","/sick-report**", "/sick-success**" , "/password-reset**" , "/new-password/**","/new-password**", "/webjars/**","/**","/sick-report/**", "/docs/**","/api/v1/employee/login", "/api/v1/employee/login-gmail","/login" ,"/api/v1/employee/botLogin","/api/v1/toffy/**","/botLogin","/reports**","/login_email","/api/v1/tenant","/toffy","/api/v1/tenant/signup","/api/v1/tenant/**/logo","/api/v1/employee/getEmailFromSlack*","/api/v1/toffy/contact","/hello").permitAll()
-                //.antMatchers(HttpMethod.POST, "/api/v1/employee").hasAnyAuthority("ADMIN", "HR_ADMIN","HR_OFFICER")
-                //.antMatchers(HttpMethod.PUT, "/api/v1/employee").hasAnyAuthority("ADMIN", "HR_ADMIN")
-                //.antMatchers("/api/v1/w-hours").hasAnyAuthority("ADMIN", "HR_ADMIN")
-                //.antMatchers(HttpMethod.POST, "/api/v1/vacation/impose").hasAnyAuthority("ADMIN")
-                //.antMatchers(HttpMethod.PUT, "**/managerApproval/**").hasAnyAuthority("ADMIN", "HR_ADMIN","APPROVER")
-                //.antMatchers(HttpMethod.POST,"/api/v1/holidays").hasAnyAuthority("HR_ADMIN","ADMIN")
-                //.antMatchers(HttpMethod.PUT,"/api/v1/holidays").hasAnyAuthority("HR_ADMIN","ADMIN")
-                //.antMatchers(HttpMethod.POST,"/api/v1/compensation").hasAnyAuthority("ADMIN")
-                //.antMatchers(HttpMethod.PUT,"/api/v1/compensation").hasAnyAuthority("ADMIN")
-                //.antMatchers(HttpMethod.GET,"/api/v1/compensation").hasAnyAuthority("ADMIN","HR_ADMIN")
+                .antMatchers("/jsondoc**","/files/**","/api/v1/employee/assign-password**","/api/v1/user/signup","/api/v1/employee/login-username-password","/api/v1/vacation/uploadFile**","/sick-report**", "/sick-success**" , "/password-reset**" , "/new-password/**","/new-password**", "/webjars/**","/**","/sick-report/**", "/docs/**","/api/v1/employee/login", "/api/v1/employee/login-gmail","/login" ,"/api/v1/employee/botLogin","/api/v1/toffy/**","/botLogin","/reports**","/login_email","/api/v1/tenant","/toffy","/api/v1/tenant/signup","/api/v1/tenant/**/logo","/api/v1/employee/getEmailFromSlack*","/api/v1/toffy/contact","/hello").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .logout()

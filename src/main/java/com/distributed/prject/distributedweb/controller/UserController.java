@@ -64,9 +64,9 @@ public class UserController {
     }
 
     @ApiMethod(description = "return all users")
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/users", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<User> getAllusers( @ApiParam(name="id") int id) {
+    public List<User> getAllusers() {
 
         return u.findAll();
     }

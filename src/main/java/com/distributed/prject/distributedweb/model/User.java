@@ -18,10 +18,14 @@ public class User implements UserDetails {
     String email;
     String password;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST})
-    @JoinTable(name = "user_coupons", joinColumns = {@JoinColumn(name = "coupon_id",
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })    @JoinTable(name = "user_coupons", joinColumns = {@JoinColumn(name = "coupon_id",
             referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "user_id",
             referencedColumnName = "id")})
+
     private List<Coupon> coupons ;
 
     public User(String name, String email, String password, List<Coupon> coupons) {
@@ -96,7 +100,6 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    @JsonIgnore
     public List<Coupon> getCoupons() {
         return coupons;
     }
