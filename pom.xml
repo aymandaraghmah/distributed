@@ -52,9 +52,16 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>commons-codec</groupId>
+            <groupId>commons-codec
+
+            </groupId>
             <artifactId>commons-codec</artifactId>
             <version>1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.7.0</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
         <dependency>
@@ -209,6 +216,11 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>2.6.1</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>4.3.14.RELEASE</version>
         </dependency>
     </dependencies>
 

@@ -8,8 +8,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@JsonInclude(content = JsonInclude.Include.NON_NULL)
-@Configurable
 public class FoodCategory implements Cloneable {
 
     @Id
@@ -23,6 +21,10 @@ public class FoodCategory implements Cloneable {
         this.name = name;
         this.picture = picture;
     }
+
+    public FoodCategory() {
+    }
+
     @OneToMany( fetch = FetchType.LAZY, cascade = {CascadeType.ALL},mappedBy="category")
     List<Product> products;
 

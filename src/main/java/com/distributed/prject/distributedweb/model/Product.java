@@ -26,7 +26,7 @@ public class Product {
     @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     private List<Coupon> coupons ;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private FoodCategory category;
 
@@ -37,6 +37,9 @@ public class Product {
         this.sale = sale;
         this.image = image;
         this.coupons = coupons;
+    }
+
+    public Product() {
     }
 
     public List<Coupon> getCoupons() {

@@ -25,6 +25,11 @@ public class Coupon {
         this.users = users;
         this.products = products;
     }
+    public Coupon(String name, String description, Set<Product> products) {
+        this.name = name;
+        this.description = description;
+        this.products = products;
+    }
 
     public Coupon(int id,String name, String description) {
         this.name = name;

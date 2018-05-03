@@ -9,6 +9,7 @@ import com.distributed.prject.distributedweb.repository.CouponRepository;
 import com.distributed.prject.distributedweb.repository.ProductRepository;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -123,8 +124,8 @@ public class UserService {
     public ResponseEntity<Object> addProductToCategory(int productId, int categoryId) {
         FoodCategory foodCategory = categoryRepository.findById(categoryId);
         Product product= productRepository.findById(productId);
-        foodCategory.getProducts().add(product);
-        categoryRepository.save(foodCategory);
+        product.setFoodCategory(foodCategory);
+        productRepository.save(product);
         return new ResponseEntity<>("updated",HttpStatus.OK);
 
     }
@@ -135,11 +136,34 @@ public class UserService {
         return new ResponseEntity<>("updated",HttpStatus.OK);
 
     }
+    public ResponseEntity<Object> updateProduct(Product product, int id) {
+        Product oldProduct = productRepository.findById(id);
+        if(product.getFoodCategory() == null)
+            product.setFoodCategory(oldProduct.getFoodCategory());
+        product.setId(id);
+        productRepository.save(product);
+        return new ResponseEntity<>("updated",HttpStatus.OK);
 
+    }
     public ResponseEntity<Object> deleteCategory(int id) {
         FoodCategory foodCategory= categoryRepository.findById(id);
         categoryRepository.delete(foodCategory);
         return new ResponseEntity<>("deleted",HttpStatus.OK);
 
+    }
+
+    public ResponseEntity<Object> deleteProduct(int id) {
+        Product product= productRepository.findById(id);
+        productRepository.delete(product);
+        return new ResponseEntity<>("deleted",HttpStatus.OK);
+    }
+
+    public List<Product> getLatestProducts() {
+        List<Product> products = productRepository.findAll(new Sort(Sort.Direction.DESC,"added"));
+        int end = 7;
+        if (products.size()<7)
+            end = products.size()-1;
+
+        return  products.subList(0,end);
     }
 }
