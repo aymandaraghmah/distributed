@@ -1,6 +1,5 @@
 package com.distributed.prject.distributedweb.repository;
 
-import com.distributed.prject.distributedweb.model.FoodCategory;
 import com.distributed.prject.distributedweb.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
