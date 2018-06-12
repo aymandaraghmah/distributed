@@ -10,6 +10,7 @@ import com.distributed.prject.distributedweb.services.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
 import org.jsondoc.core.annotation.ApiMethod;
+import org.jsondoc.core.annotation.ApiPathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,13 +28,15 @@ public class CouponController {
     UserService userService;
     @Autowired
     CouponRepository u;
+    @Autowired
+    UserRepository userRepository;
 
     @Autowired
     UserAuthorizationService userAuthorizationService;
     @ApiMethod(description = "create a coupon API ")
     @RequestMapping(value = "/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<Object> createCoupon(@RequestBody @Valid Coupon coupon   ) {
+    public ResponseEntity<Object> signUp(@RequestBody @Valid Coupon coupon   ) {
 
 
                 u.save(coupon);
@@ -42,9 +45,9 @@ public class CouponController {
 
 
     @ApiMethod(description = "add a coupon to an employee API ")
-    @RequestMapping(value = "addToUser/{userId}/{couponId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{userId}/{couponId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<Object> addToUser(@PathVariable(name="userId") int userId,@PathVariable(name="couponId") int couponId   ) {
+    public ResponseEntity<Object> signIn(@ApiPathParam(name = "userId", description = "user ID") @PathVariable("userId") int userId,  @ApiPathParam(name = "couponId", description = "couponId ID") @PathVariable("couponId") int couponId   ) {
 
         return userService.addCouponToUser(couponId,userId);
     }
@@ -53,7 +56,7 @@ public class CouponController {
     @ApiMethod(description = "update coupon ")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<Object> updateCoupon(@RequestBody @Valid Coupon coupon , @PathVariable(name="id") int id) {
+    public ResponseEntity<Object> updateCoupon(@RequestBody @Valid Coupon coupon ,@ApiPathParam(name = "id", description = "coupon ID") @PathVariable("id") int id) {
 
         return userService.updateCoupon(coupon,id);
     }
@@ -61,7 +64,7 @@ public class CouponController {
     @ApiMethod(description = "delete coupon")
     @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<Object> deleterCoupon( @PathVariable(name="id") int id) {
+    public ResponseEntity<Object> deleterCoupon( @ApiPathParam(name = "id", description = "coupon ID") @PathVariable("id") int id) {
 
         return userService.deleterCoupon(id);
     }
@@ -69,9 +72,9 @@ public class CouponController {
     @ApiMethod(description = "return all coupons for a user")
     @RequestMapping(value = "user-coupons/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<Coupon> getUerCoupons(@PathVariable(name="userId") int userId) {
-
-        return u.findUserCoupons(userId);
+    public List<Coupon> getUerCoupons(@ApiPathParam(name = "userId", description = "user ID") @PathVariable("userId") int userId) {
+User user = userRepository.findById(userId);
+        return user.getCoupons();
     }
 
 

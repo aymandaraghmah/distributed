@@ -4,8 +4,8 @@ import com.distributed.prject.distributedweb.security.UserAuthorizationService;
 import io.swagger.annotations.Api;
 import com.distributed.prject.distributedweb.model.User;
 import io.swagger.annotations.ApiParam;
-import net.bytebuddy.asm.Advice;
 import org.jsondoc.core.annotation.ApiMethod;
+import org.jsondoc.core.annotation.ApiPathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -50,15 +50,15 @@ public class UserController {
     @ApiMethod(description = "update use details ")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<Object> updateUser(@RequestBody @Valid User user , @ApiParam(name="id") int id) {
+    public ResponseEntity<Object> updateUser(@RequestBody @Valid User user ,  @ApiPathParam(name = "id", description = "user ID") @PathVariable("id") int id) {
 
         return userService.updateUser(user,id);
     }
 
     @ApiMethod(description = "delete user")
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<Object> deleterUser( @ApiParam(name="id") int id) {
+    public ResponseEntity<Object> deleterUser(  @ApiPathParam(name = "id", description = "user ID") @PathVariable("id") int id) {
 
         return userService.deleteUser(id);
     }
